@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нашей любви 1 год</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght=700&family=Montserrat:wght=400;500;700&family=Playfair+Display:ital,wght=1,600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffe5ec;
+            font-family: 'Montserrat', sans-serif;
+            color: #4A4A4A;
+            overflow-x: hidden;
+            padding-bottom: 100px;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Элементы неонового светящегося фона под стеклом */
+        .bg-glow {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffcad4 50%, #b5e2fa; 100%);
+        }
+
+        .glow-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.6;
+        }
+
+        .circle-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #ff7096; }
+        .circle-2 { top: 40%; right: -10%; width: 45vw; height: 45vw; background: #f7aef8; }
+        .circle-3 { bottom: -10%; left: 20%; width: 55vw; height: 55vw; background: #ffb7b2; }
+
+        /* Падающие сердечки */
+        #hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; 
+            z-index: 99;
+            overflow: hidden;
+        }
+
+        .falling-heart {
+            position: absolute;
+            color: #FB6F92;
+            opacity: 0.5;
+            font-size: var(--size);
+            animation: fall var(--duration) linear infinite;
+            top: -50px;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Шапка */
+        header {
+            text-align: center;
+            padding: 60px 20px 10px;
+        }
+
+        header h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 4.8rem;
+            color: #FF477E;
+            text-shadow: 2px 4px 10px rgba(255, 71, 126, 0.15);
+            animation: heartbeat 2s infinite ease-in-out;
+        }
+
+        /* Стеклянный Блок Таймера */
+        .timer-container {
+            text-align: center;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 12px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            box-shadow: 0 8px 32px 0 rgba(251, 111, 146, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .timer-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #FF477E;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .timer-clock {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .timer-clock span { color: #FF477E; }
+
+        /* Главный блок (Фото + Письмо) */
+        .main-story {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        .main-photo-wrapper {
+            flex: 1;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .main-photo {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            border: 10px solid #fff;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .main-photo:hover { transform: scale(1.02); }
+
+        /* Эффект матового стекла для письма */
+        .love-letter {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .love-letter h2 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #FF477E;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+
+        .love-letter p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        /* Заголовки разделов */
+        .collage-title, .quiz-main-title {
+            text-align: center;
+            margin: 80px 20px 40px;
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: #FF477E;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.03);
+        }
+
+        /* Коллаж */
+        .photo-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .grid-item {
+            background-color: #fff;
+            padding: 10px 10px 15px 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .img-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-caption {
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            color: #E63946;
+            margin-top: 12px;
+            text-align: center;
+            line-height: 1.2;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 18px 35px rgba(251, 111, 146, 0.2);
+            z-index: 10;
+        }
+
+        /* Стеклянные карточки викторины */
+        .quiz-section {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .quiz-question {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 20px;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .option-btn {
+            background-color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 14px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #4A4A4A;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .option-btn:hover {
+            border-color: #FB6F92;
+            background-color: #FFF0F3;
+            transform: translateY(-2px);
+        }
+
+        /* Состояния ответов викторины */
+        .option-btn.correct {
+            background-color: #D8F3DC !important;
+            border-color: #52B788 !important;
+            color: #1B4332 !important;
+            font-weight: 600;
+        }
+
+        .option-btn.wrong {
+            background-color: #FEE2E2 !important;
+            border-color: #F87171 !important;
+            color: #991B1B !important;
+        }
+
+        .quiz-feedback {
+            margin-top: 15px;
+            font-family: 'Caveat', cursive;
+            font-size: 1.6rem;
+            line-height: 1.3;
+            display: none;
+            padding: 5px 10px;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .quiz-feedback.correct-text { color: #1B4332; display: block; }
+        .quiz-feedback.wrong-text { color: #881337; display: block; }
+
+        /* Модальное окно просмотра */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: zoom-out;
+            padding: 20px;
+        }
+
+        .modal.show { display: flex; opacity: 1; }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            border: 5px solid #fff;
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-content { transform: scale(1); }
+
+        .modal-caption {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            color: #FFE5EC;
+            margin-top: 15px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .photo-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+            .main-story { flex-direction: column; gap: 30px; }
+            .main-photo-wrapper { max-width: 100%; }
+        }
+
+        @media (max-width: 650px) {
+            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .quiz-options { grid-template-columns: 1fr; gap: 10px; }
+            header h1 { font-size: 3.5rem; }
+            .love-letter { padding: 25px; }
+            .love-letter h2 { font-size: 1.8rem; }
+            .collage-title, .quiz-main-title { font-size: 2.4rem; margin: 50px 20px 30px; }
+            .timer-clock { font-size: 1.1rem; }
+            .photo-caption { font-size: 1.2rem; }
+            .modal-caption { font-size: 1.8rem; }
+            .quiz-card { padding: 20px; }
+            .quiz-question { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Размытый светящийся неоновый фон -->
+    <div class="bg-glow">
+        <div class="glow-circle circle-1"></div>
+        <div class="glow-circle circle-2"></div>
+        <div class="glow-circle circle-3"></div>
+    </div>
+
+    <!-- Падающие сердечки -->
+    <div id="hearts-container"></div>
+
+    <header>
+        <h1>Нам 1 год!</h1>
+        <div class="timer-container">
+            <div class="timer-title">Мы счастливы вместе уже:</div>
+            <div class="timer-clock" id="love-timer">Загрузка...</div>
+        </div>
+    </header>
+
+    <!-- Главный блок -->
+    <section class="main-story">
+        <div class="main-photo-wrapper">
+            <img class="main-photo zoomable" src="main.jpeg" data-caption="Моя любимая Жани ❤️" alt="Мы вместе">
+        </div>
+        
+        <div class="love-letter">
+            <h2>Моя любимая Жани...</h2>
+            <p>Сегодня особенный день — ровно год с тех пор, как мы вместе. Этот год стал самым счастливым в моей жизни, и всё благодаря тебе. Твоя улыбка, твой смех и твоя поддержка согревают меня каждый день.</p>
+            <p>Я безумно сильно люблю тебя и хочу, чтобы этот сайт напоминал тебе о наших самых ярких, веселых и романтичных моментах. Спасибо тебе за этот прекрасный год!</p>
+            <p style="text-align: right; font-weight: bold; color: #FF477E; margin-top: 20px;">Твой Любимый ❤️</p>
+        </div>
+    </section>
+
+    <div class="collage-title">16 счастливых моментов</div>
+
+    <!-- Коллаж (4 ряда по 4 фото) -->
+    <section class="photo-grid">
+        <!-- Ряд 1 -->
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="1.jpeg" data-caption="Алмата... ещё без меня" alt="1"></div>
+            <div class="photo-caption">Алмата... ещё без меня</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="2.jpeg" data-caption="Рутина - школа" alt="2"></div>
+            <div class="photo-caption">Рутина - школа</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="3.jpeg" data-caption="Глобал - место, где всё началось" alt="3"></div>
+            <div class="photo-caption">Глобал - начало</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="4.jpeg" data-caption="Правильная футболочка" alt="4"></div>
+            <div class="photo-caption">Правильная футболочка</div>
+        </div>
+        
+        <!-- Ряд 2 -->
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="5.jpeg" data-caption="Просто очень красивое фото" alt="5"></div>
+            <div class="photo-caption">Красивое фото</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="6.jpeg" data-caption="Опять глобал (уже даже здесь достал)" alt="6"></div>
+            <div class="photo-caption">Опять глобал</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="7.jpeg" data-caption="Только только начали встречаться" alt="7"></div>
+            <div class="photo-caption">Только начали встречаться</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="8.jpg" data-caption="Блатные в кофебуме" alt="8"></div>
+            <div class="photo-caption">Блатные в кофебуме</div>
+        </div> 
+
+        <!-- Ряд 3 -->
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="9.jpeg" data-caption="Киноооооо" alt="9"></div>
+            <div class="photo-caption">Киноооооо</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="10.jpeg" data-caption="У мя дома после школы" alt="10"></div>
+            <div class="photo-caption">У мя дома после школы</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="11.jpeg" data-caption="Ну что за красавица" alt="11"></div>
+            <div class="photo-caption">Ну что за красавица</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="12.jpeg" data-caption="А ты пахнешь цветамииии" alt="12"></div>
+            <div class="photo-caption">А ты пахнешь цветамииии</div>
+        </div>
+
+        <!-- Ряд 4 -->
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="13.jpg" data-caption="Спим" alt="13"></div>
+            <div class="photo-caption">Спим</div>
+        </div> 
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="14.jpeg" data-caption="Я не можу, ты - принцесса" alt="14"></div>
+            <div class="photo-caption">Я не можу, ты - принцесса</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="15.jpg" data-caption="Парные сумочки" alt="15"></div>
+            <div class="photo-caption">Парные сумочки</div>
+        </div> 
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="16.jpeg" data-caption="Ещё цветочкиии" alt="16"></div>
+            <div class="photo-caption">Ещё цветочкиии</div>
+        </div>
+    </section>
+
+    <!-- Викторина -->
+    <div class="quiz-main-title">Мини-игра: Проверим твою память? 😉</div>
+    
+    <section class="quiz-section">
+        <!-- Вопрос 1 -->
+        <div class="quiz-card" id="q1">
+            <div class="quiz-question">1. Когда мы первый раз пошли гулять вдвоем?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q1', 'Мимо! Ладно, подсказка: это было в будний день в начале сентября...')">А — 8 сентября</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q1', 'Близко, но нет! Давай вспоминай получше 🧐')">Б — 9 сентября</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q1', 'Дааа! 10 сентября, наш самый первый робкий шаг навстречу друг другу. Я тогда дико волновался ❤️')">В — 10 сентября</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q1', 'Не, 13-го мы уже официально кое-куда сходили...')">Г — 13 сентября</button>
+            </div>
+            <div class="quiz-feedback" id="q1-feedback"></div>
+        </div>
+
+        <!-- Вопрос 2 -->
+        <div class="quiz-card" id="q2">
+            <div class="quiz-question">2. На какой фильм мы пошли 13 сентября?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q2', 'Какая еще Барби?! Нам на свидании только розового взрыва не хватало 😂')">А — ...Барби</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q2', 'Не угадала! Форсаж — это круто, но у нас была своя атмосфера.')">Б — Форсаж 10</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q2', 'Романтично, конечно, но мы выбрали кое-что гораздо более эпичное!')">В — Три метра над уровнем неба</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q2', 'В точку! «Клинок рассекающий демонов». Лучший выбор для романтического свидания, я считаю 😎🔥')">Г — Клинок рассекающий демонов</button>
+            </div>
+            <div class="quiz-feedback" id="q2-feedback"></div>
+        </div>
+
+        <!-- Вопрос 3 -->
+        <div class="quiz-card" id="q3">
+            <div class="quiz-question">3. Кто нас сфоткал вместе во время первой прогулки, когда мы уже шли на остановку?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q3', 'Неа, Арнур тут вообще ни при чем, думай дальше!')">А — Арнур</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q3', 'Умница! Конечно, Дарига! Этот исторический кадр останется с нами навсегда 📸🥰')">Б — Дарига</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q3', 'Ха-ха, нет. Чанлинс остался в стороне!')">В — Чанлинс</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q3', 'Кирилл просто мимо проходил, это не он!')">Г — Кирилл</button>
+            </div>
+            <div class="quiz-feedback" id="q3-feedback"></div>
+        </div>
+    </section>
+
+    <!-- Модальное окно просмотра -->
+    <div id="photo-modal" class="modal">
+        <img id="modal-img" class="modal-content" src="" alt="Увеличенное фото">
+        <div id="modal-caption" class="modal-caption"></div>
+    </div>
+
+    <script>
+        // --- ТАЙМЕР ОТСЧЕТА ВРЕМЕНИ ЛЮБВИ ---
+        const startDate = new Date(2025, 8, 13, 0, 0, 0);
+
+        function updateTimer() {
+            const now = new Date();
+            const difference = now - startDate;
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('love-timer').innerHTML = 
+                `<span>${days}</span> дн. <span>${hours}</span> ч. <span>${minutes}</span> мин. <span>${seconds}</span> сек.`;
+        }
+        updateTimer();
+        setInterval(updateTimer, 1000);
+
+        // --- СКРИПТ ДЛЯ ПАДАЮЩИХ СЕРДЕЧЕК ---
+        const heartsContainer = document.getElementById('hearts-container');
+        const heartSymbols = ['❤️', '💖', '💝', '💕'];
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('falling-heart');
+            heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            const size = Math.random() * 15 + 12 + 'px';
+            const duration = Math.random() * 3 + 4 + 's'; 
+            
+            heart.style.setProperty('--size', size);
+            heart.style.setProperty('--duration', duration);
+            
+            heartsContainer.appendChild(heart);
+
+            setTimeout(() => { heart.remove(); }, parseFloat(duration) * 1000);
+        }
+        setInterval(createHeart, 300);
+
+        // --- ЛОГИКА ИНТЕРАКТИВНОЙ ВИКТОРИНЫ ---
+        function checkAnswer(btn, isCorrect, questionId, feedbackText) {
+            const card = document.getElementById(questionId);
+            const buttons = card.querySelectorAll('.option-btn');
+            const feedbackBlock = document.getElementById(questionId + '-feedback');
+
+            buttons.forEach(b => b.classList.remove('correct', 'wrong'));
+
+            if (isCorrect) {
+                btn.classList.add('correct');
+                feedbackBlock.innerText = feedbackText;
+                feedbackBlock.className = 'quiz-feedback correct-text';
+            } else {
+                btn.classList.add('wrong');
+                feedbackBlock.innerText = feedbackText;
+                feedbackBlock.className = 'quiz-feedback wrong-text';
+            }
+        }
+
+        // --- ОТКРЫТИЕ ФОТО НА ВЕСЬ ЭКРАН ---
+        const modal = document.getElementById('photo-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalCaption = document.getElementById('modal-caption');
+        const zoomableImages = document.querySelectorAll('.zoomable');
+
+        zoomableImages.forEach(img => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                modalImg.src = img.src;
+                modalCaption.innerText = img.getAttribute('data-caption');
+                modal.classList.add('show');
+            });
+        });
+
+        modal.addEventListener('click', () => {
+            modal.classList.remove('show');
+        });
+    </script>
+</body>
+</html>
