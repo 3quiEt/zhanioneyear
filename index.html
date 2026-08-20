@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Нашей любви 1 год</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Caveat:wght=700&family=Montserrat:wght=400;500;700&family=Playfair+Display:ital,wght=1,600&display=swap');
@@ -14,95 +14,71 @@
         }
 
         body {
-            background: #ffe5ec;
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffcad4 50%, #b5e2fa 100%);
+            background-attachment: fixed;
             font-family: 'Montserrat', sans-serif;
             color: #4A4A4A;
-            overflow-x: hidden;
-            padding-bottom: 100px;
+            padding-bottom: 80px;
             position: relative;
             min-height: 100vh;
-        }
-
-        /* Элементы неонового светящегося фона под стеклом */
-        .bg-glow {
-            position: fixed;
             width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            overflow: hidden;
-            background: linear-gradient(135deg, #ffe5ec 0%, #ffcad4 50%, #b5e2fa; 100%);
+            overflow-x: hidden;
         }
-
-        .glow-circle {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.6;
-        }
-
-        .circle-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #ff7096; }
-        .circle-2 { top: 40%; right: -10%; width: 45vw; height: 45vw; background: #f7aef8; }
-        .circle-3 { bottom: -10%; left: 20%; width: 55vw; height: 55vw; background: #ffb7b2; }
 
         /* Падающие сердечки */
-        #hearts-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; 
-            z-index: 99;
-            overflow: hidden;
-        }
-
         .falling-heart {
-            position: absolute;
+            position: fixed;
             color: #FB6F92;
-            opacity: 0.5;
+            opacity: 0.6;
             font-size: var(--size);
             animation: fall var(--duration) linear infinite;
             top: -50px;
+            z-index: 1;
+            pointer-events: none;
         }
 
         @keyframes fall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
-            90% { opacity: 0.5; }
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+            90% { opacity: 0.6; }
             100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+        }
+
+        header, .main-story, .collage-title, .photo-grid, .quiz-main-title, .quiz-section {
+            position: relative;
+            z-index: 10;
         }
 
         /* Шапка */
         header {
             text-align: center;
-            padding: 60px 20px 10px;
+            padding: 30px 15px 10px;
+            width: 100%;
         }
 
         header h1 {
             font-family: 'Caveat', cursive;
-            font-size: 4.8rem;
+            font-size: 3.5rem;
             color: #FF477E;
             text-shadow: 2px 4px 10px rgba(255, 71, 126, 0.15);
             animation: heartbeat 2s infinite ease-in-out;
+            word-break: break-word;
         }
 
-        /* Стеклянный Блок Таймера */
+        /* Блок Таймера */
         .timer-container {
             text-align: center;
-            margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 12px 30px;
+            margin: 10px auto 20px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 12px 20px;
             border-radius: 50px;
             display: inline-block;
             box-shadow: 0 8px 32px 0 rgba(251, 111, 146, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            max-width: 95%;
         }
 
         .timer-title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: #FF477E;
@@ -111,27 +87,30 @@
         }
 
         .timer-clock {
-            font-size: 1.4rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: #333;
+            word-break: break-word;
         }
 
         .timer-clock span { color: #FF477E; }
 
-        /* Главный блок (Фото + Письмо) */
+        /* Главный блок */
         .main-story {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px 20px 40px;
+            padding: 10px 15px 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 50px;
+            gap: 30px;
+            width: 100%;
         }
 
         .main-photo-wrapper {
             flex: 1;
             max-width: 450px;
+            width: 100%;
             text-align: center;
         }
 
@@ -139,76 +118,73 @@
             width: 100%;
             height: auto;
             border-radius: 20px;
-            border: 10px solid #fff;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            border: 6px solid #fff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             cursor: pointer;
-            transition: transform 0.3s ease;
         }
 
-        .main-photo:hover { transform: scale(1.02); }
-
-        /* Эффект матового стекла для письма */
         .love-letter {
             flex: 1;
-            background: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 40px;
-            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 25px;
+            border-radius: 25px;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            width: 100%;
         }
 
         .love-letter h2 {
             font-family: 'Playfair Display', serif;
             font-style: italic;
             color: #FF477E;
-            margin-bottom: 20px;
-            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            word-break: break-word;
         }
 
         .love-letter p {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            margin-bottom: 15px;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 12px;
             color: #333;
         }
 
-        /* Заголовки разделов */
+        /* Заголовки */
         .collage-title, .quiz-main-title {
             text-align: center;
-            margin: 80px 20px 40px;
+            margin: 35px 15px 20px;
             font-family: 'Caveat', cursive;
-            font-size: 3.5rem;
+            font-size: 2.8rem;
             color: #FF477E;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.03);
+            word-break: break-word;
         }
 
-        /* Коллаж */
+        /* Коллаж ПК версия */
         .photo-grid {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
+            gap: 15px;
+            width: 100%;
         }
 
         .grid-item {
             background-color: #fff;
-            padding: 10px 10px 15px 10px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 8px 8px 12px 8px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
         }
 
         .img-container {
             width: 100%;
-            height: 250px;
+            height: 220px;
             overflow: hidden;
             border-radius: 8px;
         }
@@ -221,75 +197,63 @@
 
         .photo-caption {
             font-family: 'Caveat', cursive;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: #E63946;
-            margin-top: 12px;
+            margin-top: 8px;
             text-align: center;
             line-height: 1.2;
             width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            word-break: break-word;
         }
 
-        .grid-item:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 18px 35px rgba(251, 111, 146, 0.2);
-            z-index: 10;
-        }
-
-        /* Стеклянные карточки викторины */
+        /* Викторина */
         .quiz-section {
             max-width: 750px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
+            width: 100%;
         }
 
         .quiz-card {
-            background: rgba(255, 255, 255, 0.45);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 25px;
-            padding: 30px;
-            margin-bottom: 35px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            width: 100%;
         }
 
         .quiz-question {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: #222;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            line-height: 1.4;
         }
 
         .quiz-options {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 10px;
+            width: 100%;
         }
 
         .option-btn {
-            background-color: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            padding: 14px 20px;
-            border-radius: 15px;
+            background-color: #ffffff;
+            border: 1px solid #ffccd5;
+            padding: 12px 14px;
+            border-radius: 12px;
             cursor: pointer;
             font-family: 'Montserrat', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 500;
             color: #4A4A4A;
             text-align: left;
-            transition: all 0.3s ease;
+            width: 100%;
+            word-break: break-word;
         }
 
-        .option-btn:hover {
-            border-color: #FB6F92;
-            background-color: #FFF0F3;
-            transform: translateY(-2px);
-        }
-
-        /* Состояния ответов викторины */
         .option-btn.correct {
             background-color: #D8F3DC !important;
             border-color: #52B788 !important;
@@ -304,13 +268,11 @@
         }
 
         .quiz-feedback {
-            margin-top: 15px;
+            margin-top: 12px;
             font-family: 'Caveat', cursive;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             line-height: 1.3;
             display: none;
-            padding: 5px 10px;
-            animation: fadeIn 0.4s ease forwards;
         }
 
         .quiz-feedback.correct-text { color: #1B4332; display: block; }
@@ -320,7 +282,7 @@
         .modal {
             display: none; 
             position: fixed;
-            z-index: 999;
+            z-index: 9999;
             top: 0;
             left: 0;
             width: 100%;
@@ -329,33 +291,26 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            cursor: zoom-out;
-            padding: 20px;
+            padding: 15px;
         }
 
-        .modal.show { display: flex; opacity: 1; }
+        .modal.show { display: flex; }
 
         .modal-content {
-            max-width: 90%;
-            max-height: 80vh;
+            max-width: 95%;
+            max-height: 75vh;
             border-radius: 10px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-            border: 5px solid #fff;
-            transform: scale(0.7);
-            transition: transform 0.3s ease;
+            border: 3px solid #fff;
+            object-fit: contain;
         }
-
-        .modal.show .modal-content { transform: scale(1); }
 
         .modal-caption {
             font-family: 'Caveat', cursive;
-            font-size: 2.2rem;
+            font-size: 1.6rem;
             color: #FFE5EC;
-            margin-top: 15px;
+            margin-top: 12px;
             text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            width: 100%;
         }
 
         @keyframes heartbeat {
@@ -364,41 +319,33 @@
             100% { transform: scale(1); }
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Адаптивность */
-        @media (max-width: 992px) {
-            .photo-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
-            .main-story { flex-direction: column; gap: 30px; }
-            .main-photo-wrapper { max-width: 100%; }
-        }
-
-        @media (max-width: 650px) {
-            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-            .quiz-options { grid-template-columns: 1fr; gap: 10px; }
-            header h1 { font-size: 3.5rem; }
-            .love-letter { padding: 25px; }
-            .love-letter h2 { font-size: 1.8rem; }
-            .collage-title, .quiz-main-title { font-size: 2.4rem; margin: 50px 20px 30px; }
-            .timer-clock { font-size: 1.1rem; }
-            .photo-caption { font-size: 1.2rem; }
-            .modal-caption { font-size: 1.8rem; }
-            .quiz-card { padding: 20px; }
-            .quiz-question { font-size: 1.1rem; }
+        /* АДАПТИВ ДЛЯ ТЕЛЕФОНОВ: 1 СТОЛБЕЦ */
+        @media (max-width: 600px) {
+            .photo-grid { 
+                grid-template-columns: 1fr; 
+                gap: 15px; 
+                padding: 0 15px; 
+            }
+            .img-container { 
+                height: 260px; 
+            }
+            .main-story { 
+                flex-direction: column; 
+                gap: 20px; 
+            }
+            .quiz-options { 
+                grid-template-columns: 1fr; 
+            }
+            header h1 { 
+                font-size: 2.8rem; 
+            }
+            .collage-title, .quiz-main-title { 
+                font-size: 2.2rem; 
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- Размытый светящийся неоновый фон -->
-    <div class="bg-glow">
-        <div class="glow-circle circle-1"></div>
-        <div class="glow-circle circle-2"></div>
-        <div class="glow-circle circle-3"></div>
-    </div>
-
-    <!-- Падающие сердечки -->
-    <div id="hearts-container"></div>
 
     <header>
         <h1>Нам 1 год!</h1>
@@ -408,7 +355,6 @@
         </div>
     </header>
 
-    <!-- Главный блок -->
     <section class="main-story">
         <div class="main-photo-wrapper">
             <img class="main-photo zoomable" src="main.jpeg" data-caption="Моя любимая Жани ❤️" alt="Мы вместе">
@@ -416,17 +362,15 @@
         
         <div class="love-letter">
             <h2>Моя любимая Жани...</h2>
-            <p>Сегодня особенный день — ровно год с тех пор, как мы вместе. Этот год стал самым счастливым в моей жизни, и всё благодаря тебе. Твоя улыбка, твой смех и твоя поддержка согревают меня каждый день.</p>
-            <p>Я безумно сильно люблю тебя и хочу, чтобы этот сайт напоминал тебе о наших самых ярких, веселых и романтичных моментах. Спасибо тебе за этот прекрасный год!</p>
-            <p style="text-align: right; font-weight: bold; color: #FF477E; margin-top: 20px;">Твой Любимый ❤️</p>
+            <p>Сегодня особенный день - ровно год с тех пор, как мы вместе. Этот год стал самым счастливым в моей жизни, и всё благодаря тебе. Раньше я и подумать не мог, насколько "любовь" прекрасная вещь.</p>
+            <p>Я безумно сильно люблю тебя и хочу, чтобы этот сайт напоминал тебе о наших самых ярких, веселых и романтичных моментах. Спасибо тебе за этот прекрасный год! Впереди нас ждет ещё больше интересных моментов, трудностей, но я всегда хочу, чтобы рядома была ТЫ!</p>
+            <p style="text-align: right; font-weight: bold; color: #FF477E; margin-top: 15px;">Твой Масик ❤️</p>
         </div>
     </section>
 
-    <div class="collage-title">16 счастливых моментов</div>
+    <div class="collage-title">28 счастливых моментов</div>
 
-    <!-- Коллаж (4 ряда по 4 фото) -->
     <section class="photo-grid">
-        <!-- Ряд 1 -->
         <div class="grid-item">
             <div class="img-container"><img class="zoomable" src="1.jpeg" data-caption="Алмата... ещё без меня" alt="1"></div>
             <div class="photo-caption">Алмата... ещё без меня</div>
@@ -443,8 +387,6 @@
             <div class="img-container"><img class="zoomable" src="4.jpeg" data-caption="Правильная футболочка" alt="4"></div>
             <div class="photo-caption">Правильная футболочка</div>
         </div>
-        
-        <!-- Ряд 2 -->
         <div class="grid-item">
             <div class="img-container"><img class="zoomable" src="5.jpeg" data-caption="Просто очень красивое фото" alt="5"></div>
             <div class="photo-caption">Красивое фото</div>
@@ -458,11 +400,9 @@
             <div class="photo-caption">Только начали встречаться</div>
         </div>
         <div class="grid-item">
-            <div class="img-container"><img class="zoomable" src="8.JPG" data-caption="Блатные в кофебуме" alt="8"></div>
+            <div class="img-container"><img class="zoomable" src="8.jpg" data-caption="Блатные в кофебуме" alt="8"></div>
             <div class="photo-caption">Блатные в кофебуме</div>
         </div> 
-
-        <!-- Ряд 3 -->
         <div class="grid-item">
             <div class="img-container"><img class="zoomable" src="9.jpeg" data-caption="Киноооооо" alt="9"></div>
             <div class="photo-caption">Киноооооо</div>
@@ -479,10 +419,8 @@
             <div class="img-container"><img class="zoomable" src="12.jpeg" data-caption="А ты пахнешь цветамииии" alt="12"></div>
             <div class="photo-caption">А ты пахнешь цветамииии</div>
         </div>
-
-        <!-- Ряд 4 -->
         <div class="grid-item">
-            <div class="img-container"><img class="zoomable" src="13.JPG" data-caption="Спим" alt="13"></div>
+            <div class="img-container"><img class="zoomable" src="13.jpg" data-caption="Спим" alt="13"></div>
             <div class="photo-caption">Спим</div>
         </div> 
         <div class="grid-item">
@@ -490,20 +428,67 @@
             <div class="photo-caption">Я не можу, ты - принцесса</div>
         </div>
         <div class="grid-item">
-            <div class="img-container"><img class="zoomable" src="15.JPG" data-caption="Парные сумочки" alt="15"></div>
+            <div class="img-container"><img class="zoomable" src="15.jpg" data-caption="Парные сумочки" alt="15"></div>
             <div class="photo-caption">Парные сумочки</div>
         </div> 
         <div class="grid-item">
             <div class="img-container"><img class="zoomable" src="16.jpeg" data-caption="Ещё цветочкиии" alt="16"></div>
             <div class="photo-caption">Ещё цветочкиии</div>
         </div>
+
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="17.jpg" data-caption="Новогодняя фотосешн" alt="17"></div>
+            <div class="photo-caption">Новогодняя фотосешн</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="18.jpg" data-caption="Миньон" alt="18"></div>
+            <div class="photo-caption">Миньон</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="19.jpg" data-caption="Ох уж этот глобал" alt="19"></div>
+            <div class="photo-caption">Ох уж этот глобал</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="20.jpg" data-caption="Сирдечкооооо" alt="20"></div>
+            <div class="photo-caption">Сирдечкооооо</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="21.jpg" data-caption="Ура рейбаны" alt="21"></div>
+            <div class="photo-caption">Ура рейбаны</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="22.jpg" data-caption="Фотобудка на маке" alt="22"></div>
+            <div class="photo-caption">Фотобудка на маке</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="23.jpeg" data-caption="Совместная поездка <3" alt="23"></div>
+            <div class="photo-caption">Совместная поездка <3</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="24.jpg" data-caption="Устав" alt="24"></div>
+            <div class="photo-caption">Устав</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="25.jpg" data-caption="Просто цены" alt="25"></div>
+            <div class="photo-caption">Просто цены</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="26.jpg" data-caption="Что-то не так" alt="26"></div>
+            <div class="photo-caption">Что-то не так</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="27.jpg" data-caption="Самая красивая в мире" alt="27"></div>
+            <div class="photo-caption">Самая красивая в мире</div>
+        </div>
+        <div class="grid-item">
+            <div class="img-container"><img class="zoomable" src="28.jpeg" data-caption="Летняя красота" alt="28"></div>
+            <div class="photo-caption">Летняя красота</div>
+        </div>
     </section>
 
-    <!-- Викторина -->
     <div class="quiz-main-title">Мини-игра: Проверим твою память? 😉</div>
     
     <section class="quiz-section">
-        <!-- Вопрос 1 -->
         <div class="quiz-card" id="q1">
             <div class="quiz-question">1. Когда мы первый раз пошли гулять вдвоем?</div>
             <div class="quiz-options">
@@ -515,7 +500,6 @@
             <div class="quiz-feedback" id="q1-feedback"></div>
         </div>
 
-        <!-- Вопрос 2 -->
         <div class="quiz-card" id="q2">
             <div class="quiz-question">2. На какой фильм мы пошли 13 сентября?</div>
             <div class="quiz-options">
@@ -527,7 +511,6 @@
             <div class="quiz-feedback" id="q2-feedback"></div>
         </div>
 
-        <!-- Вопрос 3 -->
         <div class="quiz-card" id="q3">
             <div class="quiz-question">3. Кто нас сфоткал вместе во время первой прогулки, когда мы уже шли на остановку?</div>
             <div class="quiz-options">
@@ -538,16 +521,180 @@
             </div>
             <div class="quiz-feedback" id="q3-feedback"></div>
         </div>
+
+        <div class="quiz-card" id="q4">
+            <div class="quiz-question">4. В каком костюме была Жания в Глобале в день нашего знакомства (6 сентября)?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q4', 'А вот и нет! В черном она тоже красотка, но в тот день был другой цвет 😉')">А — В стильном черном</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q4', 'Ярковато! Неа, попробуй еще!')">Б — В ярком желтом</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q4', 'Дааа! В том самом очень красивом розовом костюме! Ты тогда сразу привлекла моё внимание ✨')">В — В красивом розовом</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q4', 'Джинса — мимо!')">Г — В джинсовом</button>
+            </div>
+            <div class="quiz-feedback" id="q4-feedback"></div>
+        </div>
+
+        <div class="quiz-card" id="q5">
+            <div class="quiz-question">5. Какое имя было одним из вариантов, когда вы пытались отгадать, как меня зовут?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q5', 'Не-а, Марк не звучал!')">А — Марк</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q5', 'Точно! Вариант «Макан» действительно звучал! 😄')">Б — Макан</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q5', 'Мирас? Мимо!')">В — Мирас</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q5', 'Мурат тоже мимо!')">Г — Мурат</button>
+            </div>
+            <div class="quiz-feedback" id="q5-feedback"></div>
+        </div>
+
+        <div class="quiz-card" id="q6">
+            <div class="quiz-question">6. С помощью чего Жания в итоге смогла правильно отгадать моё имя?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q6', 'Эрик только дал подсказку про первую букву М и 6 букв!')">А — Спросила у Эрика напрямую</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q6', 'Именно! Зашла в ИИ и выбила ответ «Максим!». Современные проблемы требуют современных решений 🤖💡')">Б — Воспользовалась искусственным интеллектом</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q6', 'Инстаграм подключился только позже!')">В — Подсмотрела в соцсетях</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q6', 'Подруги тоже гадали вместе с тобой!')">Г — Ей подсказала подруга</button>
+            </div>
+            <div class="quiz-feedback" id="q6-feedback"></div>
+        </div>
+
+        <div class="quiz-card" id="q7">
+            <div class="quiz-question">7. Видео с кем из моих друзей я показывал вам в Глобале 6 сентября?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q7', 'Правильно! С Кириллом Мущинским, моим лучшим другом! После этого мы поняли, как много у нас общих знакомых 🔥')">А — С Кириллом Мущинским</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q7', 'Коршунов появился в нашей истории чуть позже!')">Б — С Кириллом Коршуновым</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q7', 'Эрик и так стоял рядом!')">В — С Эриком</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q7', 'Андрей сидел со мной за столом!')">Г — С Андреем</button>
+            </div>
+            <div class="quiz-feedback" id="q7-feedback"></div>
+        </div>
+
+        <div class="quiz-card" id="q8">
+            <div class="quiz-question">8. Какую фразочку Коршунов посоветовал тебе написать мне в директ?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q8', 'Слишком банально для Коршунова!')">А — «Привет, отгадай кто!»</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q8', 'Ха-ха, да! «Коршунов ждет фит с Мущинским». Я как только увидел это сообщение в ночь на 8 сентября, сразу понял, что это ты! 😂')">Б — «Коршунов ждет фит с Мущинским»</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q8', 'Максичай — это было в первый день, но фраза не та!')">В — «Дай попить Максичай»</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q8', 'Тоже мимо!')">Г — «Погнали в Глобал?»</button>
+            </div>
+            <div class="quiz-feedback" id="q8-feedback"></div>
+        </div>
+
+        <div class="quiz-card" id="q9">
+            <div class="quiz-question">9. Что случайно мелькнуло на экране твоего телефона 10 сентября, из-за чего ты очень застеснялась?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q9', 'Переписку мы тогда еще не разглядывали!')">А — Скриншот нашей переписки</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q9', 'Ахаха, да! Ты свайпнула вправо в чате с Алтынай, а там моя фотка из инсты! Ты так быстро выключила телефон и застеснялась, а я просто улыбался 🙈❤️')">Б — Моя фотка из Инстаграма</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q9', 'Котики — это мило, но там был кое-кто другой!')">В — Милое видео с котиками</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q9', 'Викторина тогда еще даже не планировалась!')">Г — Список вопросов для викторины</button>
+            </div>
+            <div class="quiz-feedback" id="q9-feedback"></div>
+        </div>
+
+        <div class="quiz-card" id="q10">
+            <div class="quiz-question">10. Где именно я задал тот самый главный вопрос: «Так что, мы встречаемся?»</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q10', 'В кино мы только держались за ручки!')">А — Внутри кинотеатра</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q11', 'В Глобале все думали, что мы уже встречаемся, но вопрос я задал не там!')">Б — В Глобале за столом</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q10', 'В точку! Возле Мака, прямо перед тем как ты села в такси. Ты еще так радостно ответила «Даааа!!» 🥰')">В — Около Мака, отведя тебя подальше от друзей</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q10', 'На остановке мы просто обнимались 10 числа!')">Г — На остановке во время первой прогулки</button>
+            </div>
+            <div class="quiz-feedback" id="q10-feedback"></div>
+        </div>
+
+        <div class="quiz-card" id="q11">
+            <div class="quiz-question">11. Зачем мы с Андреем изначально собирались пойти в Глобал 6 сентября?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q11', 'Какая учеба в начале сентября, ну ты чего!')">А — Подготовиться к урокам</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q11', 'Да! Андрей приехал, я написал ему «погнали в глобал посидим?», и мы пошли просто пообщаться!')">Б — Просто посидеть и пообщаться, так как Андрей приехал</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q11', 'Эрика мы встретили случайно!')">В — Встретить Эрика</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q11', 'На фестиваль собиралась ты, а не мы!')">Г — Посмотреть музыкальный фестиваль</button>
+            </div>
+            <div class="quiz-feedback" id="q11-feedback"></div>
+        </div>
+
+        <div class="quiz-card" id="q12">
+            <div class="quiz-question">12. Какое мероприятие проходило в Костанае 6 сентября, куда ты собиралась с подругами?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q12', 'Баскетбол — это по моей части!')">А — Городской турнир по баскетболу</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q12', 'Умница! Музыкальный фестиваль «Kostanay Music Fest» 🎶')">Б — «Kostanay Music Fest»</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q12', 'Мак был уже 13 сентября!')">В — Открытие нового Мака</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q12', 'В кино мы пошли позже!')">Г — Кинопоказ на открытом воздухе</button>
+            </div>
+            <div class="quiz-feedback" id="q12-feedback"></div>
+        </div>
+
+        <div class="quiz-card" id="q13">
+            <div class="quiz-question">13. С какими подругами ты пришла в Глобал в день нашего знакомства?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q13', 'С Даригой вы сфоткались позже!')">А — С Даригой и Замирой</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q13', 'Да! С Алтынай и Лизой 👭')">Б — С Алтынай и Лизой</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q13', 'Не-а, не они!')">В — С Кариной и Алиной</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q13', 'Вас было трое!')">Г — Ты была одна</button>
+            </div>
+            <div class="quiz-feedback" id="q13-feedback"></div>
+        </div>
+
+        <div class="quiz-card" id="q14">
+            <div class="quiz-question">14. Где сидели мы с Андреем, когда вы втроем зашли в Глобал?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q14', 'На террасе было бы слишком холодно!')">А — На улице на террасе</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q14', 'За круглый стол как раз сели вы!')">Б — За большим круглым столом</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q14', 'Именно! Мы с Андреем сидели у окна на двух креслах 🪟')">В — У окна на двух креслах</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q14', 'Не за стойкой!')">Г — За барной стойкой</button>
+            </div>
+            <div class="quiz-feedback" id="q14-feedback"></div>
+        </div>
+
+        <div class="quiz-card" id="q15">
+            <div class="quiz-question">15. Какой напиток я пил, когда ты попросила сделать глоток?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q15', 'Колу я люблю, но тогда был другой напиток!')">А — Колу</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q15', 'Да! Легендарный Максичай, с которого и начался наш диалог 🍹')">Б — Максичай</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q15', 'Не кофе!')">В — Айс-капучино</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q15', 'Фанта мимо!')">Г — Фанту</button>
+            </div>
+            <div class="quiz-feedback" id="q15-feedback"></div>
+        </div>
+
+        <div class="quiz-card" id="q16">
+            <div class="quiz-question">16. Как именно я понял 7 сентября, что на улице возле Глобала находится Эрик?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q16', 'Он не звонил!')">А — Эрик сам мне позвонил</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q16', 'Точно! Увидел по блинку, что он рядом, пошел поздороваться, а он мне и выдал главный секрет 😉')">Б — Увидел его местоположение по блинку</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q16', 'Андрей не заметил!')">В — Андрей заметил его в окно</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q16', 'Ты тогда еще со мной не общалась напрямую!')">Г — Ты сказала об этом</button>
+            </div>
+            <div class="quiz-feedback" id="q16-feedback"></div>
+        </div>
+
+        <div class="quiz-card" id="q17">
+            <div class="quiz-question">17. Что я сделал, когда встретил тебя 10 сентября в Глобале?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q17', 'Просто помахать было бы слишком скучно!')">А — Просто помахал рукой</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q17', 'Да! Мы пошли навстречу друг другу, и я сразу крепко тебя обнял 🤗')">Б — Сразу обнял тебя</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q17', 'Цветы были позже!')">В — Подарил цветы</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q17', 'Кофе не угощал!')">Г — Угостил кофе</button>
+            </div>
+            <div class="quiz-feedback" id="q17-feedback"></div>
+        </div>
+
+        <div class="quiz-card" id="q18">
+            <div class="quiz-question">18. Как мы провели время в кинозале 13 сентября во время просмотра фильма?</div>
+            <div class="quiz-options">
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q18', 'Попкорн ели, но не спорили!')">А — Ели попкорн и спорили про сюжет</button>
+                <button class="option-btn" onclick="checkAnswer(this, true, 'q18', 'Дааа! Ты в моменте меня обняла, я обнял тебя в ответ, и так весь фильм мы и просидели в обнимку 🥰')">Б — Просидели весь фильм в обнимку</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q18', 'На телефоны вообще не отвлекались!')">В — Постоянно отвлекались на переписку</button>
+                <button class="option-btn" onclick="checkAnswer(this, false, 'q18', 'Мы досмотрели до самого конца!')">Г — Вышли на середине фильма</button>
+            </div>
+            <div class="quiz-feedback" id="q18-feedback"></div>
+        </div>
     </section>
 
-    <!-- Модальное окно просмотра -->
     <div id="photo-modal" class="modal">
         <img id="modal-img" class="modal-content" src="" alt="Увеличенное фото">
         <div id="modal-caption" class="modal-caption"></div>
     </div>
 
     <script>
-        // --- ТАЙМЕР ОТСЧЕТА ВРЕМЕНИ ЛЮБВИ ---
+        // Таймер
         const startDate = new Date(2025, 8, 13, 0, 0, 0);
 
         function updateTimer() {
@@ -565,29 +712,28 @@
         updateTimer();
         setInterval(updateTimer, 1000);
 
-        // --- СКРИПТ ДЛЯ ПАДАЮЩИХ СЕРДЕЧЕК ---
-        const heartsContainer = document.getElementById('hearts-container');
+        // Сердечки
         const heartSymbols = ['❤️', '💖', '💝', '💕'];
 
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('falling-heart');
             heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.left = Math.random() * 90 + 'vw';
             
-            const size = Math.random() * 15 + 12 + 'px';
+            const size = Math.random() * 12 + 12 + 'px';
             const duration = Math.random() * 3 + 4 + 's'; 
             
             heart.style.setProperty('--size', size);
             heart.style.setProperty('--duration', duration);
             
-            heartsContainer.appendChild(heart);
+            document.body.appendChild(heart);
 
             setTimeout(() => { heart.remove(); }, parseFloat(duration) * 1000);
         }
-        setInterval(createHeart, 300);
+        setInterval(createHeart, 400);
 
-        // --- ЛОГИКА ИНТЕРАКТИВНОЙ ВИКТОРИНЫ ---
+        // Викторина
         function checkAnswer(btn, isCorrect, questionId, feedbackText) {
             const card = document.getElementById(questionId);
             const buttons = card.querySelectorAll('.option-btn');
@@ -606,7 +752,7 @@
             }
         }
 
-        // --- ОТКРЫТИЕ ФОТО НА ВЕСЬ ЭКРАН ---
+        // Просмотр фото
         const modal = document.getElementById('photo-modal');
         const modalImg = document.getElementById('modal-img');
         const modalCaption = document.getElementById('modal-caption');
